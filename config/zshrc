@@ -16,7 +16,7 @@ case ${UID} in
   PROMPT=$'%B%{\e[35m%}(%W %T) : [%{\e[32m%}%~%{\e[35m%}]\n%{\e[31m%}%B%n@%m(%h)>%{\e[0m%}%b '
 	;;
 *)
-  PROMPT=$'%B%{\e[34m%}(%W %T) : [%{\e[32m%}%~%{\e[34m%}]\n%{\e[0m%}%B%n@%m(%h)>%{\e[0m%}%b '
+  PROMPT=$'%B%{\e[32m%}(%W %T) : [%{\e[32m%}%~%{\e[34m%}]\n%{\e[0m%}%B%n@%m(%h)>%{\e[0m%}%b '
 	;;
 esac
 
@@ -51,6 +51,8 @@ source ~/.zshcomp       # compretion setting
 source ~/.zshenv        # environment values
 source ~/.zshalias      # aliases
 source ~/.zshfunc	# functions
+
+source ~/local/config/host.d/zshrc-${HOST}
 
 # Some nice key bindings
 bindkey -e               # emacs key bindings
