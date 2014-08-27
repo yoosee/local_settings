@@ -1,0 +1,105 @@
+# 
+# zshrc
+#
+# Author : ikarashi yoshinori <yoshi@init.org>
+# Created: "2001-06-04 00:24:42 yoshi"
+# Time-stamp: "2007-02-21 14:00:23 yoshi"
+# 
+# 
+
+cdpath=(.. ~ ~/work)
+path=($path /usr/sbin /sbin ~/local/bin ~/.rvm/bin)
+fpath=(~/.zsh/fpath $fpath)
+
+case ${UID} in
+0)
+  PROMPT=$'%B%{\e[35m%}(%W %T) : [%{\e[32m%}%~%{\e[35m%}]\n%{\e[31m%}%B%n@%m(%h)>%{\e[0m%}%b '
+	;;
+*)
+  PROMPT=$'%B%{\e[34m%}(%W %T) : [%{\e[32m%}%~%{\e[34m%}]\n%{\e[0m%}%B%n@%m(%h)>%{\e[0m%}%b '
+	;;
+esac
+
+setenv() { export $1=$2 }
+
+#alias ls="ls --color=auto -F"
+
+WATCHFMT='%n %a %l from %m at %t.'
+
+stty -ixon
+
+#
+# zsh environment
+#
+
+unsetopt correct_all
+setopt	notify globdots correct pushdtohome cdablevars autolist
+#setopt	listtype 
+setopt	nohup
+setopt	autocd recexact longlistjobs
+setopt	autoresume histignoredups pushdsilent noclobber
+setopt	autopushd pushdminus extendedglob rcquotes mailwarning
+setopt  list_packed
+unsetopt bgnice autoparamslash allexport
+
+
+#
+# include external files
+#
+
+source ~/.zshcomp       # compretion setting
+source ~/.zshenv        # environment values
+source ~/.zshalias      # aliases
+source ~/.zshfunc	# functions
+
+# Some nice key bindings
+bindkey -e               # emacs key bindings
+bindkey ' ' magic-space  # also do history expansino on space
+bindkey '^J' self-insert
+
+#bindkey '^X^Z' universal-argument ' ' magic-space
+#bindkey '^X^A' vi-find-prev-char-skip
+#bindkey '^Z' accept-and-hold
+#bindkey -s '\M-/' \\\\
+#bindkey -s '\M-=' \|
+# bindkey -v             # vi key bindings
+
+# url-quote-magic 
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+
+# history
+HISTFILE=$HOME/.zsh/history           # 履歴をファイルに保存する 
+HISTSIZE=1000000                      # メモリ内の履歴の数 
+SAVEHIST=1000000                      # 保存される履歴の数 
+setopt extended_history               # 履歴ファイルに時刻を記録 
+setopt share_history
+setopt hist_ignore_all_dups    # 既にヒストリにあるコマンド行は古い方を削除
+setopt hist_reduce_blanks      # コマンドラインの余計なスペースを排除
+function history-all { history -E 1 } # 全履歴の一覧を出力する 
+
+# keychain
+#
+case ${UID} in
+1000)
+  keychain id_rsa
+  source $HOME/.keychain/`hostname`-sh
+	;;
+esac
+
+# update terminfo for utf8 handling (disable acsc,rmacs,smacs)
+#
+#tic ~/local/share/terminfo
+
+#
+#
+
+chpwd() {
+	[[ -t 1 ]] || return
+	case $TERM in 
+	*xterm*|rxvt|(dt|k|E|gnome-)term) print -Pn "\e]2;%m: %~\a"
+	;;
+	esac
+}
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

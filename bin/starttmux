@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+SESSIONNAME="main"
+HOSTNAME=`hostname -s`
+SESSIONNAME=$HOSTNAME
+
+tmux has-session -t $SESSIONNAME &> /dev/null
+if [ $? != 0 ]
+  then
+    tmux new-session -s $SESSIONNAME -n main -d
+    tmux new-window -n console -t $SESSIONNAME
+    tmux send-keys -t $SESSIONNAME:2 'cd ~/work/' C-m
+    tmux select-window -t $SESSIONNAME:1
+#    tmux send-keys -t $SESSIONNAME "~/foobar" C-m
+fi
+
+tmux attach -t $SESSIONNAME
+

@@ -1,0 +1,129 @@
+
+function zip-dir () {
+  zip -r "$1.zip" "$1"
+}
+
+function zip-dir-r () {
+  zip -r "$1.zip" "$1"
+  du -h  "$1"
+  ls -hl "$1.zip"
+  rm -rI "$1"
+}
+
+function get-rfc () {
+  wget http://www.ring.gr.jp/archives/doc/RFC/rfc$1.txt
+}
+
+function hotsync () {
+  pilot-xfer -s ~/palm/backup/current
+}
+
+typeset -Ag abbreviations
+abbreviations=(
+  "Im"    "| more"
+  "Ia"    "| awk"
+  "Ig"    "| grep"
+  "Ieg"   "| egrep"
+  "Iag"   "| agrep"
+  "Igr"   "| groff -s -p -t -e -Tlatin1 -mandoc"
+  "Ip"    "| $PAGER"
+  "Ih"    "| head"
+  "Ik"    "| keep"
+  "It"    "| tail"
+  "Is"    "| sort"
+  "Iv"    "| ${VISUAL:-${EDITOR}}"
+  "Iw"    "| wc"
+  "Ix"    "| xargs"
+)
+
+magic-abbrev-expand() {
+    local MATCH
+    LBUFFER=${LBUFFER%%(#m)[_a-zA-Z0-9]#}
+    LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
+    zle self-insert
+}
+
+no-magic-abbrev-expand() {
+  LBUFFER+=' '
+}
+
+zle -N magic-abbrev-expand
+zle -N no-magic-abbrev-expand
+bindkey " " magic-abbrev-expand
+bindkey "^x " no-magic-abbrev-expand
+
+
+typeset -Ag abbreviations
+abbreviations=(
+    " G"    " | grep"    #文字列の頭に半角スペース1つ
+)
+
+magic-abbrev-expand() {
+   local MATCH
+   LBUFFER="${LBUFFER%%(#m) [_a-zA-Z0-9]#}"
+   LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
+   zle self-insert
+}
+
+bindkey -s '^z' '^[q %\\$EDITOR^m'
+
+#preexec () {
+#  echo -ne "\ek${(s: :)1[1]}\e\\"
+#}
+
+#function ssh_screen(){
+# eval server=?${$#}
+#  screen -t $server ssh "$@"
+#}
+#if [ x$TERM = xscreen ]; then
+#	 alias ssh=ssh_screen
+#fi
+
+# extract-diffs
+
+#if [[ $CURRENT -gt 2 ]]
+#then
+# local expl
+# _wanted values expl 'patched file' \
+# compadd - ${${${(M)${(@f)"$(< $words[2])"}:#+++ *}#+++ }%%[   ]*}
+#else
+# _files -g '*.diff'
+#fi
+
+#if [ "$TERM" = "screen" ]; then
+#  chpwd () { echo -n "^[_`dirs`^[\\" }
+#  preexec() {
+#    # see [zsh-workers:13180]
+#    # http://www.zsh.org/mla/workers/2000/msg03993.html
+#    emulate -L zsh
+#    local -a cmd; cmd=(${(z)2})
+#    case $cmd[1] in
+#      fg)
+#        if (( $#cmd == 1 )); then
+#          cmd=(builtin jobs -l %+)
+#        else
+#          cmd=(builtin jobs -l $cmd[2])
+#        fi
+#        ;;
+#      %*) 
+#        cmd=(builtin jobs -l $cmd[1])
+#        ;;
+#      cd)
+#        if (( $#cmd == 2)); then
+#          cmd[1]=$cmd[2]
+#        fi
+#        ;&
+#      *)
+#        echo -n "^[k$cmd[1]:t^[\\"
+#        return
+#        ;;
+#    esac
+#
+#    local -A jt; jt=(${(kv)jobtexts})
+#
+#    $cmd >>(read num rest
+#      cmd=(${(z)${(e):-\$jt$num}})
+#      echo -n "^[k$cmd[1]:t^[\\") 2>/dev/null
+#  }
+#  chpwd
+#fi

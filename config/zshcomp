@@ -1,0 +1,46 @@
+# zshcomp
+#
+# Time-stamp: "2001-05-11 01:47:59 yoshi"
+#
+#
+
+autoload -U compinit
+compinit -u
+
+# 補完候補を色付け ( for upto 3.1.x )
+zmodload -i zsh/complist
+ZLS_COLORS=$LS_COLORS
+
+#fignore=(.o ^.)
+
+# Setup some basic programmable completions.  To see more examples
+# of these, check Misc/compctl-examples in the zsh distribution.
+compctl -g '*(-/)' cd pushd
+compctl -g '*(/)' rmdir dircmp
+compctl -j -P % -x 's[-] p[1]' -k signals -- kill
+compctl -j -P % fg bg wait jobs disown
+compctl -A shift
+compctl -caF type whence which
+compctl -F unfunction
+compctl -a unalias
+compctl -v unset typeset declare vared readonly export integer
+compctl -e disable
+compctl -d enable
+
+# ssh の後にホスト名を補完。-l を付けるとその後にユーザ名を補完する。
+# 候補のホスト名とユーザ名は先に定義しておく
+hosts=( localhost zero.init.org www.unixuser.org pooh.isoternet.org )
+users=( yoshi yoosee )
+
+_cache_hosts=(localhost $HOST 
+		jump 
+    devfs01j.securesites.net devfp01j.securesites.net
+	  192.168.0.1 192.168.1.1
+)
+
+
+compctl -caF -x \
+    'p[1,1]' -k hosts - \
+    'c[-1,-l]' -k users - \
+    's[-]' -k winopt - 'c[-1,-display]' -k '($DISPLAY)' -S ' ' - \
+    'p[2,-1]' -l ''                 -- rsh rs ssh
