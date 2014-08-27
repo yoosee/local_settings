@@ -1,95 +1,15 @@
 #
-# .alias for zsh file by igarashi Rev.20001203
+# .alias for zsh file 
 #
 
-#alias latex	='platex'
 alias du='du -shc'
 alias ls='ls -F --color=auto'
 alias la='ls -Fa'
 alias ll='ls -lAFtr'
-alias rrr='rm -ri *~ ;rm -ri .*~ ;rm -ri *.*~'
-alias archie='archie -h archie.kyoto-u.ac.jp'
 alias h='history 25'
-alias whojp='whois -h whois.nic.ad.jp'
-
-#alias retags="etags --language=none --regex='/\\(def\\|class\\)[ \\t]\([^ \\t]+\\)/\\2/' "
 
 alias mpg='mpg321 -o esd'
 alias mplayer='mplayer -ao sdl:esd'
 
-alias mnews='env EDITOR=mule mnews'
 alias less='lv'
 
-alias startx='startx -- -deferglyphs 16 -dpi 100 -depth 24'
-alias xconsole='xconsole -geometry 480x130-0-0 -notify -verbose -fn fixed -exitOnFail -file /dev/xconsole'
-
-alias root='root -l'
-alias broot='root -l -b -q'
-
-alias edic='dic -d ej'
-alias jdic='dic -d je'
-alias kdic='dic -d jj'
-alias ldic='dic -d ee'
-
-alias masq='sudo iptables -t nat -I POSTROUTING -s 10.0.0.0/24 -o ppp0 -j MASQUERADE'
-
-alias zero='ssh -C zero.init.org'
-alias unixuser='ssh -C yoshi@www.unixuser.org'
-alias pooh='ssh -C -1 yoosee@pooh.isoternet.org'
-alias xcom='ssh -C yoosee@ns.xcom.gr.jp'
-alias emmie='ssh -C yoosee@emmie.koka-in.org'
-alias fifi='ssh -C yoosee@fifi.koka-in.org'
-#alias coderidge='ssh -C yoosee@coderidge.3hands.jp'
-alias dora='ssh -C yoosee@dora.koka-in.org'
-alias sakura='ssh -C yoosee@yoosee.net'
-
-alias s2='ssh -C igarashi@s2.awa.tohoku.ac.jp'
-alias bwg='ssh -C igarasi@bwg03.kek.jp'
-alias bgate='ssh -C igarasi@bgate.kek.jp'
-alias klm='ssh yoshi@klm-linux.awa.tohoku.ac.jp'
-alias pcv='slogin -l yoshi pcv.awa.tohoku.ac.jp'
-alias s8a3s0c='rlogin -l s8a3s0c ecip-sp.sp.ecip.tohoku.ac.jp'
-alias sra4s0c='rlogin -l sra4s0c ecip-sp.sp.ecip.tohoku.ac.jp'
-alias dualon='ssh yoshi@dualon.init.org'
-alias aries='ssh yoshi@aries.init.org'
-alias higgs='ssh yoshi@202.13.196.233'
-
-#alias son='screen -r -x'
-
-alias -g V="| vim -R -"
-
-alias logdiary='tail /home/www/yoosee.net/data/gp/var/log/access.log'
-alias lognamazu='tail -20 /home/yoshi/HTML/words/diary/namazu/NMZ.slog'
-
-##################
-## 壁紙の変更など。
-##
-
-alias xplanet_sendai='xplanetbg --fuzz 20 --orthographics --longitude 140.93 --latitude 38.26 --radius 40 --star_den 0 --blend --markers --marker_file ~/.xearth_marker --image doc/soft/xplanet/earth_1600.jpg'
-
-# blank の設定
-alias nbl='xset s noblank'
-alias bl='xset s blank'
-# 背景の変更
-alias gettin='foreach i (0 1 2 3 4 5 6 7 8 9) foreach j (0 1 2 3 4 5 6 7 8 9 ) '
-alias black='xsetroot -solid black'
-alias startrek='xv -root -quit -noresetroot -rmode 5 /home/yoshi/doc/private/images/startrek/deflect.jpg'
-alias ud='sudo apt-get update && sudo apt-get -d -y upgrade'
-alias getclip="wget 'http://newsclip.chem.nagoya-u.ac.jp/cgi-bin/newsclip.cgi?id=Agee-caw-minor&mget=17' -O ~/tmp/downloads/newsclip.zip"
-
-alias newmail='maildir -r -v "(tmp|Trash)"'
-alias newspam='grep -h \^Subject: ~/Maildir/.spam/new/* | tail -20 | nkf -em '
-
-#alias photosync='mount /mnt/card/sd; sync-day-by-day /mnt/card/sd/dcim/101_pana ~/album; umount /mnt/card/sd'
-alias photosync='mount /mnt/card/elecom; sync-day-by-day /mnt/card/elecom/dcim/100casio ~/album; umount /mnt/card/elecom'
-
-alias code3play='mpg123 -u kasodeti:oyokotyan -b 512 http://coderidge.3hands.jp/~haruyama/$*'
-
-alias pgt='wget --referer=http://www.pilotwarez.com/ http://www.pilotwarez.com/download.php\?palmpass.zip'
-
-alias sync-sakura-webalizer='rsync -e ssh -aD yoosee@yoosee.sakura.ne.jp:log /home/www/yoosee.net/www/info/sakura'
-alias eterm="Eterm -M k12g -F a12 --mencoding eucj -O --shade 80"
-
-alias getip='curl -s ip.appspot.com'
-
-alias tunnel-fifi 'ssh -f -N -L 192.168.1.10:6669:fifi.koka-in.org:11401 yoosee@fifi.koka-in.org'
