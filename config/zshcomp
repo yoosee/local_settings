@@ -1,7 +1,5 @@
 # zshcomp
 #
-# Time-stamp: "2001-05-11 01:47:59 yoshi"
-#
 #
 
 autoload -U compinit
@@ -29,15 +27,8 @@ compctl -d enable
 
 # ssh の後にホスト名を補完。-l を付けるとその後にユーザ名を補完する。
 # 候補のホスト名とユーザ名は先に定義しておく
-hosts=( localhost zero.init.org www.unixuser.org pooh.isoternet.org )
-users=( yoshi yoosee )
-
-_cache_hosts=(localhost $HOST 
-		jump 
-    devfs01j.securesites.net devfp01j.securesites.net
-	  192.168.0.1 192.168.1.1
-)
-
+hosts=( five.init.org zero.init.org )
+users=( )
 
 compctl -caF -x \
     'p[1,1]' -k hosts - \

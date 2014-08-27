@@ -3,7 +3,7 @@ function zip-dir () {
   zip -r "$1.zip" "$1"
 }
 
-function zip-dir-r () {
+function zip-dir-rm () {
   zip -r "$1.zip" "$1"
   du -h  "$1"
   ls -hl "$1.zip"
