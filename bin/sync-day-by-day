@@ -1,0 +1,74 @@
+#! /usr/bin/env ruby
+#
+# sync-day-by-day - sync files day by day
+#
+# Copyright (C) 2000 Satoru Takabayashi <satoru@namazu.org>
+#     All rights reserved.
+#     This is free software with ABSOLUTELY NO WARRANTY.
+#
+# You can redistribute it and/or modify it under the terms of 
+# the GNU General Public License version 2.
+#
+# original file URL: http://0xcc.net/attic/sync-day-by-day
+#
+
+require 'find'
+require 'date'
+require 'ftools'
+
+def usage
+  puts "Usage: sync-day-by-day <source directory> <destination directory>"
+  exit
+end
+
+def nodir(dir)
+  puts "No directory: " + dir
+  exit 1
+end
+
+def same_file? (f1, f2)
+  File.symlink?(f1) == false && File.symlink?(f2) == false && \
+  File.file?(f1) && File.file?(f2) && \
+  File.size(f1) == File.size(f2) && File.mtime(f1) == File.mtime(f2)
+end
+
+def parse_options
+  usage if ARGV[0] == nil || ARGV[1] == nil
+  nodir ARGV[0] if File.directory?(ARGV[0]) == false
+  nodir ARGV[1] if File.directory?(ARGV[1]) == false
+  return ARGV
+end
+
+def datedir(date)
+  sprintf "%02d/%02d/%02d", date.year, date.month, date.day
+end
+
+# incomplete substitute for cp -p 
+def copy(src, dest)
+  atime = File.atime(src)
+  mtime = File.mtime(src)
+  File.copy src, dest
+  File.utime(atime, mtime, dest)
+end
+
+def sync_day_by_day(src, dest)
+  Find.find(src) do |s|      # path of the source file
+    next unless File.file? s
+    r = s.sub(/^#{src}\//, "")  # relative path
+    d = File.join dest, datedir(File.mtime(s))
+    f = File.join d, r
+    unless File.file?(f) && same_file?(s, f)
+      printf "%s -> %s\n", s, f
+      File.mkpath d unless File.directory? d
+      copy s, f
+    end
+  end
+end
+
+def main
+  src, dest = parse_options
+  sync_day_by_day src, dest
+end
+
+main
+

@@ -1,0 +1,109 @@
+f-touch - a tool to change time stamp of jpeg files using EXIF info.
+#
+# Usage: 
+#
+#   % exif-touch *.jpg
+#
+# Copyright (C) 2003 Satoru Takabayashi <satoru@namazu.org> 
+#     All rights reserved.
+#     This is free software with ABSOLUTELY NO WARRANTY.
+#
+# You can redistribute it and/or modify it under the terms
+# of Ruby's licence.
+#
+# original file URL: http://0xcc.net/attic/exif-touch
+
+module Exif
+  HEADER_OFFSET1 = 12
+  HEADER_OFFSET2 = 8
+
+  module_function
+  def exif_file? (filename)
+    exif_header = "\xff\xd8\xff\xe1"
+    magic = File.open(filename) {|f| f.read(4) }
+    magic == exif_header
+  end
+
+  def read_directory (f, read_ushort, read_ulong)
+    n = read_ushort.call(f)
+    n.times {
+      tag   = read_ushort.call(f)
+      type  = read_ushort.call(f)
+      size  = read_ulong.call(f)
+      value = read_ulong.call(f)
+      yield(f, tag, type, size, value)
+    }
+  end
+
+  def get_endian (f)
+    f.seek(HEADER_OFFSET1)
+    data = f.read(2)
+    if data == "\x49\x49"
+      :little_endian
+    elsif data == "\x4d\x4d"
+      :big_endian
+    else
+      raise 'unknown format'
+    end
+  end
+
+  def get_time (filename)
+    time = File.mtime(filename)
+    begin
+      raise 'not an exif file' unless exif_file?(filename)
+      File.open(filename) {|f|
+        read_ushort = lambda {|f| f.read(2).unpack('v').first }
+        read_ulong  = lambda {|f| f.read(4).unpack('V').first }
+        if get_endian(f) == :big_endian
+          read_ushort = lambda {|f| f.read(2).unpack('n').first }
+          read_ulong  = lambda {|f| f.read(4).unpack('N').first }
+        end
+
+        f.seek(HEADER_OFFSET1 + HEADER_OFFSET2)
+        special_offset = nil
+        read_directory(f, read_ushort, read_ulong) {|f, tag, type, size, value|
+          special_offset = value if tag == 0x8769
+        }
+        raise if special_offset.nil?
+
+        f.seek(HEADER_OFFSET1 + special_offset)
+        read_directory(f, read_ushort, read_ulong) {|f, tag, type, size, value|
+          if tag == 0x9003
+            curpos = f.pos
+            f.seek(HEADER_OFFSET1 + value)
+            s = f.read(size) # 2003:01:26 16:37:04
+            if /(\d\d\d\d):(\d\d):(\d\d) (\d\d):(\d\d):(\d\d)/.match(s)
+              year = $1.to_i;  mon  = $2.to_i
+              day  = $3.to_i;  hour = $4.to_i
+              min  = $5.to_i;  sec  = $6.to_i
+              time = Time.mktime(year, mon, day, hour, min, sec)
+            end
+            f.seek(curpos)
+          end
+        }
+      }
+    rescue => e
+      STDERR.puts "exif-touch: #{filename}: #{e.message}"
+      exit 1
+    end
+    return time
+  end
+end
+
+if __FILE__ == $0
+  def fmt (t)
+    t.strftime("%Y-%m-%d %H:%M:%S")
+  end
+
+  ARGV.each {|filename|
+    if Exif.exif_file?(filename)
+      old = File.mtime(filename)
+      new = Exif.get_time(filename)
+      File.utime(new, new, filename)
+      puts "#{filename}: #{fmt(old)} -> #{fmt(new)}"
+    else
+      puts "#{filename}: not an exif file"
+    end
+  }
+end
+

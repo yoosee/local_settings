@@ -1,0 +1,25 @@
+# -*- muttrc -*-
+#
+# common configuration file for mutt
+#
+#
+
+set realname="Yoshinori Ikarashi"
+
+#set alias_file = ~/.mutt/aliases
+set postpone=ask-no
+
+set include
+set copy
+set nosmart_wrap
+set nomarkers
+
+set delete = ask-yes
+set print = ask-yes
+set sort_aux = date-received
+
+set edit_headers
+
+source ~/.mutt_mailboxes
+
+source ~/.mutt/headers
