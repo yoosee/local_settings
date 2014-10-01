@@ -14,7 +14,7 @@
 
 require 'find'
 require 'date'
-require 'ftools'
+require 'fileutils'
 
 def usage
   puts "Usage: sync-day-by-day <source directory> <destination directory>"
@@ -47,7 +47,7 @@ end
 def copy(src, dest)
   atime = File.atime(src)
   mtime = File.mtime(src)
-  File.copy src, dest
+  FileUtils.copy src, dest
   File.utime(atime, mtime, dest)
 end
 
@@ -59,8 +59,8 @@ def sync_day_by_day(src, dest)
     f = File.join d, r
     unless File.file?(f) && same_file?(s, f)
       printf "%s -> %s\n", s, f
-      File.mkpath d unless File.directory? d
-      copy s, f
+      FileUtils.mkpath d unless File.directory? d
+      FileUtils.copy s, f
     end
   end
 end
