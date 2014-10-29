@@ -13,3 +13,12 @@ alias mplayer='mplayer -ao sdl:esd'
 
 alias less='lv'
 
+alias -s txt=vim
+alias -s html=w3m
+alias -s org=w3m
+
+alias -g C='| wc -l'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g L='| lv'
+

@@ -1,4 +1,6 @@
-f-touch - a tool to change time stamp of jpeg files using EXIF info.
+#!/usr/bin/env ruby
+#
+# exif-touch - a tool to change time stamp of jpeg files using EXIF info.
 #
 # Usage: 
 #
