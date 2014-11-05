@@ -1,9 +1,17 @@
-;;
+;; -*- Emacs-Lisp -*-
 ;;
 ;; Author: Yoshinori Ikarashi <yoosee@init.org>
 ;;
 ;;
 
+;; Load-Path
+(add-to-list 'load-path "~/local/share/emacs/site-lisp/")
+(let ((default-directory "~/local/share/emacs/site-lisp/"))
+     (setq load-path
+          (append
+		(let ((load-path (copy-sequence load-path)))
+		(normal-top-level-add-subdirs-to-load-path))
+		load-path)))
 
 
 (load "font-lock")
@@ -52,3 +60,6 @@
       (save-buffer args)))
 (setq auto-save-interval 1
       auto-save-timeout  1)
+
+(require 'auto-save-buffers)
+(run-with-idle-timer 0.5 t 'auto-save-buffers)
