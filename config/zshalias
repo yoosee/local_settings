@@ -7,6 +7,8 @@ alias ls='ls -F --color=auto'
 alias la='ls -Fa'
 alias ll='ls -lAFtr'
 alias h='history 25'
+alias ..='cd ..'
+alias ...='cd ../..'
 
 alias mpg='mpg321 -o esd'
 alias mplayer='mplayer -ao sdl:esd'
@@ -16,9 +18,11 @@ alias less='lv'
 alias -s txt=vim
 alias -s html=w3m
 alias -s org=w3m
+alias -s md='markdown | w3m -T text/html'
 
-alias -g C='| wc -l'
+alias -g C='| wc'
 alias -g H='| head'
 alias -g T='| tail'
+alias -g F='| tail -f'
 alias -g L='| lv'
 
