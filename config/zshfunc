@@ -16,8 +16,12 @@ function zip-dir-rm () {
   rm -rI "$1"
 }
 
+function timestamp() {
+  date +"%Y%m%dT%H%M%S"
+}
+
 function get-rfc () {
-  wget http://www.ring.gr.jp/archives/doc/RFC/rfc$1.txt
+  w3m http://www.ring.gr.jp/archives/doc/RFC/rfc$1.txt
 }
 
 function hotsync () {
