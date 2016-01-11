@@ -56,7 +56,9 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 "set termencoding=euc-jp
 set termencoding=utf-8
 set encoding=japan                             
-set fileencodings=iso-2022-jp,cp932,utf-8,japan
+set fileencoding=utf-8
+set fileencodings=utf-8,iso-2022-jp,cp932,japan
+set enc=utf-8
 
 set fo=M
 

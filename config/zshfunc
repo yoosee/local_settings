@@ -5,15 +5,32 @@ function prompt_stat_char {
     echo '○'
 }
 
-function zip-dir () {
+# translate hello en ja
+function translate {
+  wget -qO- "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=$2|${3:-en}" | sed 's/.*"translatedText":"\([^"]*\)".*}/\1\n/';
+}
+
+function texttospeach {
+  mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${2:-en}&q=$1"
+}
+
+function lsgooglecontacts { 
+  google contacts list --fields name,email,address,website,birthday,organization,phone,notes --title ".*${1:-linux}.*" ; 
+}
+
+function zipdir () {
   zip -r "$1.zip" "$1"
 }
 
-function zip-dir-rm () {
+function zipdirrm () {
   zip -r "$1.zip" "$1"
   du -h  "$1"
   ls -hl "$1.zip"
   rm -rI "$1"
+}
+
+function c2d () {
+	cp $* ~/Dropbox/
 }
 
 function timestamp() {

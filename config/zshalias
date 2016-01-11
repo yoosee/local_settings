@@ -9,6 +9,7 @@ alias ll='ls -lAFtr'
 alias h='history 25'
 alias ..='cd ..'
 alias ...='cd ../..'
+alias ....='cd ../../..'
 
 alias mpg='mpg321 -o esd'
 alias mplayer='mplayer -ao sdl:esd'

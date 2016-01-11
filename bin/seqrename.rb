@@ -3,6 +3,8 @@
 
 require 'optparse'
 
+Version = '0.9.0'
+
 dir = "."
 s = 1
 
@@ -10,10 +12,12 @@ args = {}
 OptionParser.new do |parser|
   parser.on('-n', '--numeric', 'Numeric Sort') {|v| args[:numeric] = v}
   parser.on('-d', '--dry-run', 'Dry Run') {|v| args[:dryrun] = v}
+  parser.on('-p PREFIX', '--prefix', 'add Prefix to filenames') {|v| args[:prefix] = v.to_s}
   parser.parse! ARGV
 end
 
 dir_sorted = Array.new
+prefix = args[:prefix] || ''
 
 if args[:numeric] 
   dir_sorted = Dir.entries(dir).sort{|a,b| 
@@ -39,6 +43,7 @@ dir_sorted.each do |filename|
     s += 1
     newname = sprintf "%04i.%s", s, suffix.downcase
   end
+	newname = prefix + newname
   puts "#{origname} => #{newname}"
   s += 1
   begin 
