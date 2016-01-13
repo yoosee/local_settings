@@ -20,6 +20,9 @@ set sort_aux = date-received
 
 set edit_headers
 
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
 source ~/.mutt_mailboxes
 
 source ~/.mutt/headers
