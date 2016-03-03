@@ -29,6 +29,12 @@ function zipdirrm () {
   rm -rI "$1"
 }
 
+function unrarall {
+  foreach i ($*) {
+		unrar x $i
+	}
+}
+
 function c2d () {
 	cp $* ~/Dropbox/
 }

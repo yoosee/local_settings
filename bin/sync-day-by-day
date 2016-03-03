@@ -10,6 +10,12 @@
 # the GNU General Public License version 2.
 #
 # original file URL: http://0xcc.net/attic/sync-day-by-day
+# -----
+#
+# Modified by Yoshinori Ikarashi <yoosee@init.org>
+# under the same license of GPLv2.
+#
+# https://github.com/yoosee/local_settings/blob/master/bin/sync-day-by-day
 #
 
 require 'find'
