@@ -28,7 +28,9 @@ stty -ixon
 # zsh options
 
 unsetopt correct_all
-setopt	notify globdots correct pushdtohome cdablevars autolist
+setopt correct
+CORRECT_IGNORE_FILE='.*'
+setopt	notify globdots pushdtohome cdablevars autolist
 #setopt	listtype 
 setopt	nohup
 setopt	autocd recexact longlistjobs

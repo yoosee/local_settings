@@ -35,3 +35,6 @@ compctl -caF -x \
     'c[-1,-l]' -k users - \
     's[-]' -k winopt - 'c[-1,-display]' -k '($DISPLAY)' -S ' ' - \
     'p[2,-1]' -l ''                 -- rsh rs ssh
+
+zstyle ':completion:*' use-cache true
+zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?~' '*\#'
