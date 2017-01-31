@@ -8,7 +8,6 @@ target_dir = Dir.home
 
 Dir.open(origin_dir).each do |f|
   src  = "#{origin_dir}/#{f.to_s}"
-  puts src
   if File.file? src
     dest = "#{target_dir}/.#{f.to_s}"
     if File.exist? dest

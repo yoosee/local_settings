@@ -35,6 +35,12 @@ function unrarall {
 	}
 }
 
+function unarall {
+  foreach i ($*) {
+		unar $i
+	}
+}
+
 function c2d () {
 	cp $* ~/Dropbox/
 }

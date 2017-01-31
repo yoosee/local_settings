@@ -8,7 +8,7 @@
 #cdpath=(.. ~ ~/work)
 path=($path /usr/sbin /sbin ~/local/bin ~/.rvm/bin)
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-fpath=(~/.zsh/fpath $fpath)
+fpath=(~/.zsh/fpath ~/.zsh/fpath/zsh-completions/src $fpath)
 
 case ${UID} in
 0)
