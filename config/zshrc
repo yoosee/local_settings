@@ -61,8 +61,10 @@ function history-all { history -E 1 } # 全履歴の一覧を出力する
 # keychain
 case ${UID} in
 1000)
-  keychain id_rsa
-  source $HOME/.keychain/`hostname`-sh
+  if [[ $USE_KEYCHAIN = 1 ]] ; then
+    keychain id_rsa
+    source $HOME/.keychain/`hostname`-sh
+  fi
 	;;
 esac
 
