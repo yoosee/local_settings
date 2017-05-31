@@ -33,7 +33,7 @@ set wildignore=*/tmp*/,*.so,*.zip,*pyc,*.jpg,*.o
 set t_Co=256 " 256 colors
 set background=dark
 syntax on " syntax highlighting
-colorscheme ir_black
+" colorscheme ir_black
 set nohlsearch
 set cursorline
 
