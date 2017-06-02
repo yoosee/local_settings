@@ -85,9 +85,9 @@ source ~/.zshenv        # environment values
 source ~/.zshalias      # aliases
 source ~/.zshfunc	# functions
 
-if [ -f ~/local/config/host.d/zshrc-${HOST} ]
+if [ -f ~/local/config/host.d/zshrc-${HOST} ]; then
   source ~/local/config/host.d/zshrc-${HOST}
 else
-
+  source ~/local/config/host.d/zshrc-general
 fi
 
