@@ -17,7 +17,6 @@ export  JSERVER='localhost'
 export  ORGANIZATION='Project INIT.'
 export  CVS_RSH='ssh'
 export  TIME_STYLE=long-iso
-export	TZ=America/New_York
 
 export	GOPATH="$HOME/work/gocode"
 

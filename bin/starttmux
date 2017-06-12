@@ -14,5 +14,5 @@ if [ $? != 0 ]
 #    tmux send-keys -t $SESSIONNAME "~/foobar" C-m
 fi
 
-tmux attach -t $SESSIONNAME
+tmux attach -d -t $SESSIONNAME
 

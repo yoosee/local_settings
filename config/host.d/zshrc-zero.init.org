@@ -8,3 +8,4 @@ case ${UID} in
 esac
 
 export USE_KEYCHAIN=1
+export TZ=Asia/Tokyo

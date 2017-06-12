@@ -33,11 +33,12 @@ else
 end
 
 dir_sorted.each do |filename|
-  next unless /\.(jpg|png)/i =~ filename
+  next unless /\.(jpg|jpeg|png)/i =~ filename
   suffix = $1
+  suffix = 'jpg' if suffix == 'jpeg'
   origname = filename
   newname = sprintf "%04i.%s", s, suffix.downcase
-  suffix = $1
+#  suffix = $1
   while File.exist? newname 
     puts "E: #{newname} already exists"
     s += 1
