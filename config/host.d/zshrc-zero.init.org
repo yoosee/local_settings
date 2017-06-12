@@ -7,3 +7,5 @@ case ${UID} in
    ;;
 esac
 
+export TZ=Asia/Tokyo
+
