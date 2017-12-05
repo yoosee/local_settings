@@ -3,9 +3,9 @@
 #
 
 alias du='du -shc'
-alias ls='ls -F --color=auto'
-alias la='ls -Fa'
-alias ll='ls -lAFtr'
+alias ls='ls -NF --color=auto'
+alias la='ls -NFa'
+alias ll='ls -lNAFtr'
 alias h='history 25'
 alias ..='cd ..'
 alias ...='cd ../..'

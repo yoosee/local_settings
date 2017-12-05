@@ -38,13 +38,17 @@ dir_sorted.each do |filename|
   suffix = 'jpg' if suffix == 'jpeg'
   origname = filename
   newname = sprintf "%04i.%s", s, suffix.downcase
-#  suffix = $1
-  while File.exist? newname 
-    puts "E: #{newname} already exists"
-    s += 1
-    newname = sprintf "%04i.%s", s, suffix.downcase
-  end
 	newname = prefix + newname
+  if File.exist? newname
+    puts "E: #{origname} already exists (#{newname}). skipping."
+    s += 1
+    next
+  end
+#  while File.exist? newname 
+#    puts "E: #{newname} already exists"
+#    s += 1
+#    newname = sprintf "%04i.%s", s, suffix.downcase
+#  end
   puts "#{origname} => #{newname}"
   s += 1
   begin 

@@ -2,32 +2,45 @@
 #
 #
 require 'digest/md5'
+require 'hashdiff'
+require 'pp'
 
 orig_dir = ARGV.shift
 dest_dir = ARGV.shift
 
-puts "compare #{orig_dir} with #{dest_dir}"
+def listmd5 dir
+  list = Hash.new
+  Dir.open(dir).sort.each do |f|
+    print "."
+    fn = dir + '/' + f
+    next unless File.file? fn
+    m = Digest::MD5.file(fn).to_s
+    list[f] = m
+  end
+  puts ''
+  return list
+end
 
-orig_list = Hash.new
-dest_list = Hash.new
-
-Dir.open(orig_dir).sort.each do |f|
-  fo = orig_dir + '/' + f
-  fd = dest_dir + '/' + f
-  next unless File.file? fo
-  if File.exists? fd
-    mo = Digest::MD5.file(fo).to_s
-    md = Digest::MD5.file(fd).to_s
-    if mo == md
-      puts "[SAME] #{fo} == #{fd}"
-      puts "  #{File.open(fo).size} : #{File.open(fd).size}"
-    else
-      puts "[DIFF] #{fo} #{mo} : #{fd} #{md}"
-      puts "  #{File.open(fo).size} : #{File.open(fd).size}"
-    end
-  else
-    puts "[NONE] #{fd} not exists."
+def printdirhash dir, h
+  puts "#{dir} :"
+  h.each do |k,v|
+    puts " #{k} => #{v}"
   end
 end
 
+print "compare #{orig_dir} "
+orig_list = listmd5 orig_dir
+print "with #{dest_dir} "
+dest_list = listmd5 dest_dir
+
+diff = HashDiff.diff(orig_list, dest_list)
+
+unless diff.empty?
+  printdirhash orig_dir, orig_list
+  printdirhash dest_dir, dest_list
+#  diff_files = Array.new
+#  diff.each do |d|
+#
+  pp diff
+end
 

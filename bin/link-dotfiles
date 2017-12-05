@@ -19,4 +19,5 @@ Dir.open(origin_dir).each do |f|
   end
 end
 
+FileUtils.mkdir "#{target_dir}/.zsh"
 
