@@ -5,7 +5,7 @@
 autoload -U compinit
 compinit -u
 
-# $BJd408uJd$r?'IU$1(B ( for upto 3.1.x )
+# 補完候補を色付け ( for upto 3.1.x )
 zmodload -i zsh/complist
 ZLS_COLORS=$LS_COLORS
 
@@ -25,8 +25,8 @@ compctl -v unset typeset declare vared readonly export integer
 compctl -e disable
 compctl -d enable
 
-# ssh $B$N8e$K%[%9%HL>$rJd40!#(B-l $B$rIU$1$k$H$=$N8e$K%f!<%6L>$rJd40$9$k!#(B
-# $B8uJd$N%[%9%HL>$H%f!<%6L>$O@h$KDj5A$7$F$*$/(B
+# ssh の後にホスト名を補完。-l を付けるとその後にユーザ名を補完する。
+# 候補のホスト名とユーザ名は先に定義しておく
 hosts=( five.init.org zero.init.org )
 users=( )
 
