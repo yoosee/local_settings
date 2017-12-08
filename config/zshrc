@@ -43,6 +43,8 @@ unsetopt bgnice autoparamslash allexport
 bindkey -e               # emacs key bindings
 bindkey ' ' magic-space  # also do history expansino on space
 bindkey '^J' self-insert
+bindkey '^r' history-incremental-pattern-search-backward
+bindkey '^s' history-incremental-pattern-search-forward
 
 # url-quote-magic 
 autoload -U url-quote-magic
