@@ -41,7 +41,8 @@ unsetopt bgnice autoparamslash allexport
 
 # Key bindings
 bindkey -e               # emacs key bindings
-bindkey ' ' magic-space  # also do history expansino on space
+#bindkey ' ' magic-space  # also do history expansino on space
+#bindkey ' ' self-insert
 bindkey '^J' self-insert
 bindkey '^r' history-incremental-pattern-search-backward
 bindkey '^s' history-incremental-pattern-search-forward

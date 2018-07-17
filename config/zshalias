@@ -15,6 +15,7 @@ alias mpg='mpg321 -o esd'
 alias mplayer='mplayer -ao sdl:esd'
 
 alias less='lv'
+alias ec='emacsclient --no-wait'
 
 alias -s txt=vim
 alias -s html=w3m
