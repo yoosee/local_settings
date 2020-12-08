@@ -22,6 +22,10 @@ alias -s html=w3m
 alias -s org=w3m
 alias -s md='markdown | w3m -T text/html'
 
+alias grep='rg' # ripgrep
+alias ps='procs'
+#alias top='ytop'
+
 alias -g C='| wc'
 alias -g H='| head'
 alias -g T='| tail'

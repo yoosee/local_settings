@@ -6,7 +6,7 @@
 # 
 
 #cdpath=(.. ~ ~/work)
-path=($path /usr/sbin /sbin ~/local/bin ~/.rvm/bin)
+path=($path /usr/sbin /sbin /snap/bin ~/local/bin ~/.rvm/bin)
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 fpath=(~/.zsh/fpath ~/.zsh/fpath/zsh-completions/src $fpath)
 
@@ -24,6 +24,9 @@ setenv() { export $1=$2 }
 WATCHFMT='%n %a %l from %m at %t.'
 
 stty -ixon
+
+#eval "$(starship init zsh)"
+eval "$(/snap/bin/starship init zsh)"
 
 # zsh options
 
