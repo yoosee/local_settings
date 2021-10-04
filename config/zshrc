@@ -25,8 +25,9 @@ WATCHFMT='%n %a %l from %m at %t.'
 
 stty -ixon
 
-#eval "$(starship init zsh)"
 eval "$(/snap/bin/starship init zsh)"
+
+eval "$(jump shell)"
 
 # zsh options
 
@@ -93,6 +94,7 @@ source ~/.zshcomp       # compretion setting
 source ~/.zshenv        # environment values
 source ~/.zshalias      # aliases
 source ~/.zshfunc	# functions
+source ~/.zshsecret
 
 if [ -f ~/local/config/host.d/zshrc-${HOST} ]; then
   source ~/local/config/host.d/zshrc-${HOST}
